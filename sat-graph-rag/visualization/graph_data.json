@@ -1,0 +1,611 @@
+{
+  "graph": {
+    "nodes": [
+      {
+        "id": "CF1988",
+        "label": "Constituição da República F...",
+        "group": "norm",
+        "color": "#E74C3C",
+        "size": 50,
+        "title": "NORM: Constituição da República Federativa do Brasil"
+      },
+      {
+        "id": "tit_09",
+        "label": "TÍTULO IX",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO IX"
+      },
+      {
+        "id": "tit_08",
+        "label": "TÍTULO VIII",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO VIII"
+      },
+      {
+        "id": "tit_07",
+        "label": "TÍTULO VII",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO VII"
+      },
+      {
+        "id": "tit_06",
+        "label": "TÍTULO VI",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO VI"
+      },
+      {
+        "id": "tit_05",
+        "label": "TÍTULO V",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO V"
+      },
+      {
+        "id": "tit_04",
+        "label": "TÍTULO IV",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO IV"
+      },
+      {
+        "id": "tit_03",
+        "label": "TÍTULO III",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO III"
+      },
+      {
+        "id": "tit_02",
+        "label": "TÍTULO II",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO II"
+      },
+      {
+        "id": "tit_01",
+        "label": "TÍTULO I",
+        "group": "title",
+        "color": "#3498DB",
+        "size": 35,
+        "title": "TITLE: TÍTULO I"
+      },
+      {
+        "id": "tit_02_cap_04_art_16_cap_05",
+        "label": "CAPÍTULO V",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO V"
+      },
+      {
+        "id": "tit_02_cap_03_art_13_par_2_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_02_cap_02_art_11_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_02_cap_01_art_5_par_4_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_02_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_03_cap_06_art_36_par_4_cap_07",
+        "label": "CAPÍTULO VII",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO VII"
+      },
+      {
+        "id": "tit_03_cap_05_sec_02_art_33_par_3_cap_06",
+        "label": "CAPÍTULO VI",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO VI"
+      },
+      {
+        "id": "tit_03_cap_04_art_31_par_4_cap_05",
+        "label": "CAPÍTULO V",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO V"
+      },
+      {
+        "id": "tit_03_cap_03_art_28_par_2_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_03_cap_02_art_24_par_4_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_03_cap_01_art_19_inc_III_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_03_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_04_cap_04_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_04_cap_03_sec_08_art_126_par_unico_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_04_cap_02_sec_05_art_91_par_2_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_04_cap_01_sec_09_art_75_par_unico_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_04_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_05_cap_02_art_143_par_2_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_05_cap_01_sec_03_art_141_par_unico_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_05_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_06_cap_01_sec_06_art_162_par_unico_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_06_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_07_cap_03_art_191_par_unico_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_07_cap_02_art_183_par_3_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_07_cap_01_art_181_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_07_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      },
+      {
+        "id": "tit_08_cap_07_art_230_par_2_cap_08",
+        "label": "CAPÍTULO VIII",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO VIII"
+      },
+      {
+        "id": "tit_08_cap_06_art_225_par_7_cap_07",
+        "label": "CAPÍTULO VII",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO VII"
+      },
+      {
+        "id": "tit_08_cap_05_art_224_cap_06",
+        "label": "CAPÍTULO VI",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO VI"
+      },
+      {
+        "id": "tit_08_cap_04_art_219_par_2_cap_05",
+        "label": "CAPÍTULO V",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO V"
+      },
+      {
+        "id": "tit_08_cap_04_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_08_cap_03_sec_03_art_217_par_3_cap_04",
+        "label": "CAPÍTULO IV",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO IV"
+      },
+      {
+        "id": "tit_08_cap_02_sec_04_art_204_par_unico_inc_III_cap_03",
+        "label": "CAPÍTULO III",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO III"
+      },
+      {
+        "id": "tit_08_cap_01_art_193_par_unico_cap_02",
+        "label": "CAPÍTULO II",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO II"
+      },
+      {
+        "id": "tit_08_cap_01",
+        "label": "CAPÍTULO I",
+        "group": "chapter",
+        "color": "#2ECC71",
+        "size": 25,
+        "title": "CHAPTER: CAPÍTULO I"
+      }
+    ],
+    "edges": [
+      {
+        "from": "CF1988",
+        "to": "tit_09",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_08",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_07",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_06",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_05",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_04",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_03",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_02",
+        "arrows": "to"
+      },
+      {
+        "from": "CF1988",
+        "to": "tit_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_02",
+        "to": "tit_02_cap_04_art_16_cap_05",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_02",
+        "to": "tit_02_cap_03_art_13_par_2_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_02",
+        "to": "tit_02_cap_02_art_11_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_02",
+        "to": "tit_02_cap_01_art_5_par_4_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_02",
+        "to": "tit_02_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_06_art_36_par_4_cap_07",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_05_sec_02_art_33_par_3_cap_06",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_04_art_31_par_4_cap_05",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_03_art_28_par_2_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_02_art_24_par_4_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_01_art_19_inc_III_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_03",
+        "to": "tit_03_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_04",
+        "to": "tit_04_cap_04_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_04",
+        "to": "tit_04_cap_03_sec_08_art_126_par_unico_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_04",
+        "to": "tit_04_cap_02_sec_05_art_91_par_2_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_04",
+        "to": "tit_04_cap_01_sec_09_art_75_par_unico_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_04",
+        "to": "tit_04_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_05",
+        "to": "tit_05_cap_02_art_143_par_2_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_05",
+        "to": "tit_05_cap_01_sec_03_art_141_par_unico_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_05",
+        "to": "tit_05_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_06",
+        "to": "tit_06_cap_01_sec_06_art_162_par_unico_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_06",
+        "to": "tit_06_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_07",
+        "to": "tit_07_cap_03_art_191_par_unico_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_07",
+        "to": "tit_07_cap_02_art_183_par_3_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_07",
+        "to": "tit_07_cap_01_art_181_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_07",
+        "to": "tit_07_cap_01",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_07_art_230_par_2_cap_08",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_06_art_225_par_7_cap_07",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_05_art_224_cap_06",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_04_art_219_par_2_cap_05",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_04_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_03_sec_03_art_217_par_3_cap_04",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_02_sec_04_art_204_par_unico_inc_III_cap_03",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_01_art_193_par_unico_cap_02",
+        "arrows": "to"
+      },
+      {
+        "from": "tit_08",
+        "to": "tit_08_cap_01",
+        "arrows": "to"
+      }
+    ],
+    "mode": "demo",
+    "stats": {
+      "total_nodes": 45,
+      "total_edges": 44
+    }
+  },
+  "stats": {
+    "norms": 1,
+    "components": 3893,
+    "ctvs": 3893,
+    "clvs": 3893,
+    "text_units": 3893,
+    "relationships": 19868
+  },
+  "breakdown": {
+    "item": 1596,
+    "paragraph": 1253,
+    "article": 556,
+    "letter": 387,
+    "section": 52,
+    "chapter": 35,
+    "title": 9,
+    "subsection": 5
+  }
+}

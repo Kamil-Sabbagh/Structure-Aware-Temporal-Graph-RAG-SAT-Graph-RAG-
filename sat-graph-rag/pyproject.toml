@@ -1,0 +1,44 @@
+[project]
+name = "sat-graph-rag"
+version = "0.1.0"
+description = "Structure-Aware Temporal Graph RAG for Legal Norms"
+requires-python = ">=3.10"
+readme = "README.md"
+
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+    "neo4j>=5.0.0",
+    "openai>=1.0.0",
+    "tiktoken>=0.5.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "python-dateutil>=2.8.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+]
+modal = [
+    "modal>=0.50.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+

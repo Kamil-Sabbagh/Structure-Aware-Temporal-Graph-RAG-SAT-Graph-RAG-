@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-Graph-RAG Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg: #0f0f1a;
+            --surface: #1a1a2e;
+            --primary: #3498db;
+            --secondary: #9b59b6;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 80px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+        
+        p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        
+        ul {
+            list-style: none;
+            font-size: 1.3rem;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .stat {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        
+        .code-block {
+            background: #0d0d15;
+            border-radius: 12px;
+            padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .phase {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .phase-badge {
+            background: var(--success);
+            color: var(--bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav button {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        
+        .nav button:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--surface);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        th {
+            background: var(--surface);
+            color: var(--primary);
+        }
+        
+        .color-dot {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .schema-diagram {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 16px;
+            line-height: 2;
+        }
+        
+        .schema-node {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin: 5px;
+        }
+        
+        .node-norm { background: var(--accent); }
+        .node-component { background: var(--primary); }
+        .node-ctv { background: var(--success); }
+        .node-clv { background: var(--secondary); }
+        .node-text { background: var(--warning); }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide active center">
+        <div class="emoji">🏛️</div>
+        <h1>SAT-Graph-RAG</h1>
+        <p class="subtitle">Ontology-Driven Graph RAG for Legal Norms</p>
+        <p>A Structural, Temporal, and Deterministic Approach<br>for the Brazilian Federal Constitution</p>
+    </div>
+
+    <!-- Slide 2: Problem -->
+    <div class="slide">
+        <h2>The Problem</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Traditional RAG</h3>
+                <ul>
+                    <li>Treats documents as flat text chunks</li>
+                    <li>Loses hierarchical structure</li>
+                    <li>No temporal awareness</li>
+                    <li>Non-deterministic retrieval</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Legal Documents Need</h3>
+                <ul>
+                    <li>Title → Chapter → Article hierarchy</li>
+                    <li>Amendment history tracking</li>
+                    <li>Time-travel queries</li>
+                    <li>Precise, reproducible answers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Solution -->
+    <div class="slide">
+        <h2>Our Solution: Graph RAG</h2>
+        <p>We built an <span class="highlight">ontology-driven knowledge graph</span> that preserves:</p>
+        <div class="stat-grid">
+            <div class="stat">
+                <div class="stat-value">📊</div>
+                <div class="stat-label">Hierarchical Structure</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">⏰</div>
+                <div class="stat-label">Temporal Versions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">🔗</div>
+                <div class="stat-label">Relationships</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">🎯</div>
+                <div class="stat-label">Determinism</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: What We Built -->
+    <div class="slide">
+        <h2>What We Built</h2>
+        <div class="phase"><span class="phase-badge">✓ Phase 0</span> Project Setup - Neo4j, Docker, Python</div>
+        <div class="phase"><span class="phase-badge">✓ Phase 1</span> Data Acquisition - Scraped Constitution + 137 Amendments</div>
+        <div class="phase"><span class="phase-badge">✓ Phase 2</span> Structural Parsing - 4,195 Components Extracted</div>
+        <div class="phase"><span class="phase-badge">✓ Phase 3</span> Graph Schema - LRMoo Ontology in Neo4j</div>
+        <div class="phase"><span class="phase-badge">✓ Phase 4</span> Ingestion Pipeline - 19,868 Relationships</div>
+    </div>
+
+    <!-- Slide 5: Statistics -->
+    <div class="slide">
+        <h2>By The Numbers</h2>
+        <div class="stat-grid">
+            <div class="stat">
+                <div class="stat-value">3,893</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">19,868</div>
+                <div class="stat-label">Relationships</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">137</div>
+                <div class="stat-label">Amendments</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">84</div>
+                <div class="stat-label">Tests Passing</div>
+            </div>
+        </div>
+        <table style="margin-top: 40px;">
+            <tr>
+                <th>Component Type</th>
+                <th>Count</th>
+            </tr>
+            <tr><td><span class="color-dot" style="background:#3498DB"></span>Titles</td><td>9</td></tr>
+            <tr><td><span class="color-dot" style="background:#2ECC71"></span>Chapters</td><td>35</td></tr>
+            <tr><td><span class="color-dot" style="background:#9B59B6"></span>Sections</td><td>52</td></tr>
+            <tr><td><span class="color-dot" style="background:#F39C12"></span>Articles</td><td>556</td></tr>
+            <tr><td><span class="color-dot" style="background:#1ABC9C"></span>Paragraphs</td><td>1,253</td></tr>
+        </table>
+    </div>
+
+    <!-- Slide 6: Schema -->
+    <div class="slide">
+        <h2>Graph Schema (LRMoo)</h2>
+        <div class="schema-diagram">
+            <span class="schema-node node-norm">NORM</span> ─[:HAS_COMPONENT]→ 
+            <span class="schema-node node-component">COMPONENT</span><br><br>
+            <span class="schema-node node-component">COMPONENT</span> ─[:HAS_VERSION]→ 
+            <span class="schema-node node-ctv">CTV</span> (Temporal Version)<br><br>
+            <span class="schema-node node-ctv">CTV</span> ─[:EXPRESSED_IN]→ 
+            <span class="schema-node node-clv">CLV</span> (Language Version)<br><br>
+            <span class="schema-node node-clv">CLV</span> ─[:HAS_TEXT]→ 
+            <span class="schema-node node-text">TEXTUNIT</span> (Actual Content)
+        </div>
+        <p style="margin-top: 30px;">Key Innovation: <span class="highlight">AGGREGATES</span> relationship enables version reuse!</p>
+    </div>
+
+    <!-- Slide 7: Key Innovation -->
+    <div class="slide">
+        <h2>Key Innovation: Aggregation</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>❌ Composition (Wrong)</h3>
+                <p>When Article 5 changes:</p>
+                <div class="code-block">
+Title_v2 → Chapter_v2 → Article_v2
+          → Chapter_v2 → Article_v2  // Duplicated!
+          → Chapter_v2 → Article_v2  // Duplicated!
+                </div>
+                <p style="color: var(--accent);">Creates copies of EVERYTHING</p>
+            </div>
+            <div class="card">
+                <h3>✅ Aggregation (Right)</h3>
+                <p>When Article 5 changes:</p>
+                <div class="code-block">
+Title_v2 → Chapter_v2 → Article_v2  // NEW
+          → Chapter_v1 → Article_v1  // REUSED
+          → Chapter_v1 → Article_v1  // REUSED
+                </div>
+                <p style="color: var(--success);">Reuses unchanged components</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Visualization -->
+    <div class="slide center">
+        <h2>Interactive Visualization</h2>
+        <p>Demo Mode: 45 nodes | Full Mode: 197+ nodes</p>
+        <div style="display: flex; gap: 40px; margin-top: 30px;">
+            <div class="card" style="flex:1;">
+                <h3>🔵 Blue = Titles</h3>
+                <h3>🟢 Green = Chapters</h3>
+                <h3>🟣 Purple = Sections</h3>
+            </div>
+            <div class="card" style="flex:1;">
+                <h3>🟠 Orange = Articles</h3>
+                <h3>🟡 Yellow = Selected</h3>
+                <h3>🔴 Red = Root (Constitution)</h3>
+            </div>
+        </div>
+        <p style="margin-top: 30px;">Access at: <span class="highlight">http://localhost:8888</span></p>
+    </div>
+
+    <!-- Slide 9: Demo -->
+    <div class="slide center">
+        <h2>Live Demo</h2>
+        <div class="emoji">🎬</div>
+        <p>Let's see the visualization in action!</p>
+        <div class="code-block" style="margin-top: 30px; text-align: left;">
+# Start the visualization server
+cd sat-graph-rag/visualization
+python -m http.server 8888
+
+# Open http://localhost:8888
+        </div>
+    </div>
+
+    <!-- Slide 10: Next Steps -->
+    <div class="slide">
+        <h2>Next Steps</h2>
+        <ul style="font-size: 1.5rem;">
+            <li><strong>Phase 5:</strong> Retrieval Engine - Semantic search + graph traversal</li>
+            <li><strong>Phase 6:</strong> Time-Travel Queries - "What was Article 5 in 2010?"</li>
+            <li><strong>Phase 7:</strong> RAG Integration - LLM-powered Q&A</li>
+            <li><strong>Future:</strong> Multi-language support, API endpoints</li>
+        </ul>
+    </div>
+
+    <!-- Slide 11: Thank You -->
+    <div class="slide center">
+        <div class="emoji">🙏</div>
+        <h1>Thank You!</h1>
+        <p class="subtitle">Questions?</p>
+        <p style="margin-top: 40px;">
+            GitHub: <span class="highlight">github.com/Kamil-Sabbagh/Structure-Aware-Temporal-Graph-RAG-SAT-Graph-RAG-</span>
+        </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button onclick="prevSlide()">←</button>
+        <button onclick="nextSlide()">→</button>
+    </div>
+    
+    <div class="progress">
+        <div class="progress-fill" id="progress"></div>
+    </div>
+    
+    <div class="slide-counter" id="counter">1 / 11</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            currentSlide = (n + total) % total;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('progress').style.width = ((currentSlide + 1) / total * 100) + '%';
+            document.getElementById('counter').textContent = (currentSlide + 1) + ' / ' + total;
+        }
+
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Touch support
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+        document.addEventListener('touchend', e => {
+            const diff = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(diff) > 50) diff > 0 ? prevSlide() : nextSlide();
+        });
+    </script>
+</body>
+</html>
+

@@ -43,6 +43,6 @@
 
 ## Conclusion
 
-SAT-Graph-RAG **decisively outperforms** Baseline RAG on all temporal legal reasoning tasks.
+SAT-Graph-RAG achieves 100% temporal precision compared to 0% for Baseline RAG across all three demonstration queries.
 
 For legal applications where historical accuracy is critical, SAT-Graph-RAG eliminates the entire class of anachronism errors that make baseline systems unsuitable.

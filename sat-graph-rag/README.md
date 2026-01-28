@@ -1,207 +1,145 @@
-# SAT-Graph-RAG: Structure-Aware Temporal Graph RAG for Legal Documents
+# SAT-Graph-RAG: Temporal Graph RAG for Legal Documents
 
-**An Ontology-Driven Graph RAG system for the Brazilian Federal Constitution (1988-2025)**
+A graph-based retrieval system for legal documents with temporal versioning support. Implements an ontology-driven approach to track constitutional amendments over time and enable accurate historical queries.
 
-[![Research Status](https://img.shields.io/badge/Status-Research%20Ready-success)](.)
-[![MVP Status](https://img.shields.io/badge/MVP-Complete-brightgreen)](./MVP_DEMO_RESULTS.md)
-[![Benchmark](https://img.shields.io/badge/Benchmark-TLR--Bench%20v1.0-blue)](./data/benchmark/tlr_bench_v1.json)
-[![Temporal Precision](https://img.shields.io/badge/Temporal%20Precision-100%25-green)](./BASELINE_COMPARISON_REPORT.md)
-
-Based on the paper: *"An Ontology-Driven Graph RAG for Legal Norms: A Structural, Temporal, and Deterministic Approach"* (arXiv:2505.00039)
+**Paper**: *"An Ontology-Driven Graph RAG for Legal Norms"* (arXiv:2505.00039)
 
 ---
 
-## 🎯 Project Overview
+## Overview
 
-SAT-Graph-RAG is a novel temporal graph RAG system that achieves **100% temporal precision** on historical legal queries, eliminating the anachronism errors that plague traditional RAG systems.
+This project implements a temporal graph RAG system for the Brazilian Federal Constitution, processing the original 1988 text and 137 subsequent amendments. The system uses Neo4j to store components, versions, and amendment relationships, enabling queries about the law at any point in time.
 
-**Key Innovation**: Aggregation model that reuses unchanged components across amendments, achieving **98.8% space savings** while enabling deterministic time-travel queries.
+### What We Built
 
----
-
-## 📊 MVP Demo Results
-
-**SAT-Graph-RAG vs Baseline RAG**
-
-| Demo | SAT-Graph-RAG | Baseline RAG | Winner |
-|------|---------------|--------------|--------|
-| **Temporal Precision** | ✅ **100%** | ❌ 0% (Anachronism) | **+100%** |
-| **Provenance Tracking** | ✅ Can Answer | ❌ Cannot Answer | **SAT-Graph** |
-| **Version History** | ✅ 4 versions | ❌ 1 version | **SAT-Graph** |
-| **Overall** | **3/3 PASS** | **0/3 FAIL** | **SAT-Graph +100%** |
-
-**Run the MVP Demo**:
-```bash
-python scripts/run_mvp_demo.py
-```
-
-📄 **Full Results**: [MVP_DEMO_RESULTS.md](./MVP_DEMO_RESULTS.md)
+- **Graph database** with 4,195 constitutional components and 6,284 temporal versions
+- **Amendment processor** that tracks 137 constitutional amendments (1989-2025)
+- **Temporal query engine** for retrieving historical versions of legal text
+- **Baseline comparison** showing system capabilities vs. traditional RAG
 
 ---
 
-## 🎯 Key Results
+## Key Results
 
-### 1. Temporal Precision: 100% vs 0%
+We evaluated the system on temporal legal queries and compared it against a baseline RAG that stores only current text:
+
+| Capability | SAT-Graph-RAG | Baseline RAG |
+|------------|---------------|--------------|
+| Temporal Precision | 100% (3/3 queries) | 0% (0/3 queries) |
+| Amendment Tracking | Can identify amendments | Cannot answer |
+| Version History | Full history (4+ versions) | Current only |
+
+### Example 1: Temporal Query
 
 **Query**: "What did Article 214 say in 2005?"
 
-- **SAT-Graph-RAG**: ✅ Returns v1 (1988 original text) - **CORRECT**
-- **Baseline RAG**: ❌ Returns v4 (2020 text) - **ANACHRONISM ERROR**
+**SAT-Graph-RAG Output**:
+```
+Version: v1 (original 1988 text)
+Valid Period: 1988-10-05 to 2009-01-01
+Text: "Art. 214. A lei estabelecerá o plano nacional de educação,
+de duração plurianual, visando à articulação e ao desenvolvimento..."
+```
 
-**Why This Matters**: Returning future text for historical queries is a **critical error** in legal research that can lead to invalid citations and legal compliance failures.
+**Baseline RAG Output**:
+```
+Version: Current only (no temporal data)
+Text: "§ 4º É vedada a adoção de requisitos e critérios diferenciados
+para a concessão de aposentadoria..." (text from 2020, incorrect for 2005)
+```
 
-### 2. Provenance Tracking: Can Answer vs Cannot
+**Result**: SAT-Graph-RAG returns the correct 1988 version that was valid in 2005. Baseline returns current text from 2020, which is anachronistic.
+
+---
+
+### Example 2: Amendment Tracking
 
 **Query**: "Which amendments changed Article 222?"
 
-- **SAT-Graph-RAG**: ✅ "EC 36 (2002)" - Complete answer via Action nodes
-- **Baseline RAG**: ❌ Cannot answer (no amendment tracking)
-
-### 3. Space Efficiency: 98.8% Savings
-
-- **Composition Model** (baseline): 574,615 CTVs needed (exponential)
-- **Aggregation Model** (ours): 6,284 CTVs actual (linear)
-- **Space Savings**: **98.8%**
-
----
-
-## 🗂️ Graph Structure Visualizations
-
-### Graph 1: Component with Version History
-
-**Query**: Article 1 with all temporal versions and amendments
-
-```cypher
-MATCH (c:Component {component_id: 'tit_01_art_1'})
-      -[:HAS_VERSION]->(v:CTV)
-OPTIONAL MATCH (v)-[:SUPERSEDES]->(prev:CTV)
-OPTIONAL MATCH (a:Action)-[:RESULTED_IN]->(v)
-RETURN c, v, prev, a
+**SAT-Graph-RAG Output**:
+```
+Found Amendments: EC 36 (2002)
 ```
 
-![Graph 1: Component Versioning](./images/graph1.svg)
-
-**Shows**: How a single Component has multiple CTVs (temporal versions) connected via SUPERSEDES relationships, with Action nodes showing which amendments created each version.
-
----
-
-### Graph 2: Hierarchical Structure
-
-**Query**: Constitution → Title → Chapter hierarchy
-
-```cypher
-MATCH p = (n:Norm)-[:HAS_COMPONENT]->(t:Component {component_type: 'title'})
-      -[:HAS_CHILD]->(c:Component {component_type: 'chapter'})
-RETURN p
-LIMIT 30
+**Baseline RAG Output**:
+```
+Cannot answer (no amendment metadata)
 ```
 
-![Graph 2: Hierarchical Structure](./images/graph2.svg)
-
-**Shows**: The HAS_COMPONENT and HAS_CHILD relationships that form the constitutional hierarchy: Norm → Title → Chapter → Section → Article.
+**Result**: SAT-Graph-RAG identifies the specific amendment. Baseline has no amendment tracking capability.
 
 ---
 
-### Graph 3: Aggregation Model
+## Architecture
 
-**Query**: Title 1 aggregating active child components
+### Graph Schema
 
-```cypher
-MATCH (parent_comp:Component {component_id: 'tit_01'})
-      -[:HAS_VERSION]->(parent:CTV {is_active: true})
-      -[:AGGREGATES]->(child:CTV {is_active: true})
-MATCH (child_comp:Component {component_id: child.component_id})
-RETURN parent_comp, parent, child, child_comp
-LIMIT 15
-```
+The system uses a graph structure with the following node types:
 
-![Graph 3: Aggregation Model](./images/graph3.svg)
+- **Component**: Constitutional elements (Title, Article, Paragraph, etc.)
+- **CTV** (Component Temporal Version): Time-bound versions of components
+- **Action**: Legislative amendments (EC 1 through EC 137)
+- **TextUnit**: Actual legal text
 
-**Shows**: The AGGREGATES relationship that enables the aggregation model - parent CTVs reference child CTVs without duplication. This is the **key innovation** achieving 98.8% space savings.
+Key relationships:
+- `HAS_VERSION`: Component → CTV (temporal versions)
+- `HAS_CHILD`: Component → Component (hierarchy)
+- `RESULTED_IN`: Action → CTV (amendment provenance)
+- `AGGREGATES`: CTV → CTV (version composition)
 
----
+### Aggregation Model
 
-### Graph 4: Amendment Actions
+Instead of copying all components for each amendment, the system reuses unchanged components:
 
-**Query**: Amendment 1 (EC 1) and all components it modified
-
-```cypher
-MATCH (a:Action {amendment_number: 1})-[:RESULTED_IN]->(v:CTV)
-      <-[:HAS_VERSION]-(c:Component)
-RETURN a, v, c
-LIMIT 20
-```
-
-![Graph 4: Amendment Provenance](./images/graph4.svg)
-
-**Shows**: Action nodes (amendments) with RESULTED_IN relationships showing which CTVs were created by each amendment. This enables complete provenance tracking.
+- **Without aggregation**: 574,615 versions needed (4,195 components × 137 amendments)
+- **With aggregation**: 6,284 versions actual (only modified components)
+- **Space savings**: 98.8%
 
 ---
 
-## 📁 Key Deliverables
+## Graph Visualizations
 
-### 1. Documentation
+### Component Versioning
+![Component with versions](./images/graph1.svg)
 
-| File | Description |
-|------|-------------|
-| **[docs/DIAGRAMS.md](./docs/DIAGRAMS.md)** | 12 Mermaid diagrams explaining system architecture |
-| **[CURRENT_STATUS.md](./CURRENT_STATUS.md)** | Complete project summary and status |
-| **[BASELINE_COMPARISON_REPORT.md](./BASELINE_COMPARISON_REPORT.md)** | 15-page detailed comparison report |
-| **[MVP_DEMO_RESULTS.md](./MVP_DEMO_RESULTS.md)** | MVP demonstration results |
+Shows how a single Component node has multiple CTVs (temporal versions) over time, with Action nodes indicating which amendments created each version.
 
-### 2. Benchmark
+### Hierarchical Structure
+![Constitutional hierarchy](./images/graph2.svg)
 
-| File | Description |
-|------|-------------|
-| **[data/benchmark/tlr_bench_v1.json](./data/benchmark/tlr_bench_v1.json)** | 77-query benchmark dataset |
-| **[docs/BENCHMARK_SPECIFICATION.md](./docs/BENCHMARK_SPECIFICATION.md)** | TLR-Bench specification |
+Shows the constitutional hierarchy: Norm → Title → Chapter → Section → Article, connected via HAS_COMPONENT and HAS_CHILD relationships.
 
-**TLR-Bench** (Temporal Legal Reasoning Benchmark) is the **first benchmark specifically for temporal legal reasoning**. It tests capabilities that existing benchmarks (LegalBench, CUAD, LexGLUE) don't cover.
+### Aggregation Model
+![Aggregation relationships](./images/graph3.svg)
 
-### 3. Scripts
+Shows how parent CTVs use AGGREGATES relationships to reference child CTVs without duplication, achieving 98.8% space savings.
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/run_mvp_demo.py` | **Run polished MVP demo** (3 queries with visualizations) |
-| `scripts/run_quick_benchmark.py` | Quick validation (3 core queries) |
-| `scripts/generate_benchmark.py` | Generate TLR-Bench dataset from graph |
-| `scripts/evaluate_benchmark.py` | Full benchmark evaluation |
-| `scripts/test_retrieval.py` | Interactive query testing |
-| `scripts/run_verification.py` | System verification (100% pass rate) |
+### Amendment Provenance
+![Amendment tracking](./images/graph4.svg)
 
-### 4. Results
-
-| File | Description |
-|------|-------------|
-| **[MVP_DEMO_RESULTS.md](./MVP_DEMO_RESULTS.md)** | MVP results: 3/3 pass vs 0/3 pass |
-| **[PROPER_COMPARISON_RESULTS.json](./PROPER_COMPARISON_RESULTS.json)** | 10-query evaluation data |
-| **[METRICS_REPORT.md](./METRICS_REPORT.md)** | Comprehensive metrics documentation |
+Shows Action nodes with RESULTED_IN relationships to CTVs, enabling complete amendment history tracking.
 
 ---
 
-## 🚀 Quick Start
+## Installation & Setup
 
 ### Prerequisites
 
-```bash
-# Python 3.10+
-# Neo4j 5.x running with:
-#   - URI: bolt://localhost:7687
-#   - User: neo4j
-#   - Password: satgraphrag123
-```
+- Python 3.10+
+- Neo4j 5.x
+- 8GB RAM minimum
 
-### Installation
+### Install
 
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone <repo-url>
 cd sat-graph-rag
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Configure environment
+# Configure Neo4j connection
 cp .env.example .env
 # Edit .env with your Neo4j credentials
 ```
@@ -209,190 +147,186 @@ cp .env.example .env
 ### Load Data
 
 ```bash
-# 1. Load constitution (takes ~5 minutes)
-python scripts/load_constitution.py
+# 1. Load constitution (~5 minutes)
+python -m src.graph.loader
 
-# 2. Process amendments (takes ~15 minutes)
+# 2. Process amendments (~15 minutes)
 python scripts/process_all_amendments.py
 
-# 3. Verify system (100% pass rate expected)
+# 3. Verify system
 python scripts/run_verification.py
 ```
 
-### Run MVP Demo
+Expected verification output: 12/12 checks passed
+
+---
+
+## Usage
+
+### Run Demo
 
 ```bash
 python scripts/run_mvp_demo.py
 ```
 
-**Expected Output**:
-```
-SAT-Graph-RAG:  3/3 passed (100%)
-Baseline RAG:   0/3 passed (0%)
-🎉 ✅ SAT-Graph-RAG wins on temporal precision!
-```
+This runs 3 demonstration queries showing temporal precision, amendment tracking, and version history.
 
----
+### Interactive Testing
 
-## 📊 System Architecture
-
-### Graph Schema
-
-**Node Types**:
-- **Norm**: Constitution document
-- **Component**: Structural elements (Title, Chapter, Article, etc.)
-- **CTV** (Component Temporal Version): Version at specific time
-- **CLV** (Component Language Version): Text in specific language
-- **TextUnit**: Actual legal text
-- **Action**: Legislative event (amendment)
-
-**Relationship Types**:
-- **HAS_COMPONENT**: Norm → Component
-- **HAS_CHILD**: Component → Component (hierarchy)
-- **HAS_VERSION**: Component → CTV (temporal versions)
-- **AGGREGATES**: CTV → CTV (aggregation model)
-- **RESULTED_IN**: Action → CTV (provenance)
-- **EXPRESSED_IN**: CTV → CLV (language)
-- **HAS_TEXT**: CLV → TextUnit (text content)
-
-### Data Statistics
-
-- **Components**: 4,195 (Title, Chapter, Section, Article, Paragraph, Item)
-- **Temporal Versions (CTVs)**: 6,284
-- **Amendments Processed**: 137 (EC 1 through EC 137)
-- **Relationships**: 20,965
-- **Space Savings**: 98.8% vs composition model
-
----
-
-## 🎓 Key Contributions
-
-### 1. Novel Architecture
-
-**Aggregation Model**: Reuse unchanged components across amendments instead of copying everything.
-
-- **Problem**: Composition model requires O(A × C) storage (exponential)
-- **Solution**: Aggregation model requires O(C + M) storage (linear)
-- **Result**: 98.8% space savings (6,284 CTVs vs 574,615 needed)
-
-### 2. TLR-Bench (Novel Benchmark)
-
-First benchmark specifically for **temporal legal reasoning**:
-
-- **77 queries** across 6 task categories
-- **Verified ground truth** from Neo4j graph
-- **Standardized metrics** (temporal precision, F1-score, causal completeness)
-
-**Impact**: This benchmark can evaluate ANY temporal legal RAG system, not just ours.
-
-### 3. Validated Results
-
-| Metric | SAT-Graph-RAG | Baseline RAG | Improvement |
-|--------|---------------|--------------|-------------|
-| Temporal Precision | **100%** | 0% | **+100%** |
-| Provenance Queries | Can answer | Cannot answer | **Qualitative win** |
-| Space Efficiency | 6,284 CTVs | 574,615 needed | **98.8% savings** |
-| System Verification | 12/12 checks | N/A | **100% pass rate** |
-
----
-
-## 📖 Visual Documentation
-
-### 12 Mermaid Diagrams
-
-See **[docs/DIAGRAMS.md](./docs/DIAGRAMS.md)** for complete visual documentation including:
-
-1. Graph Construction Pipeline
-2. Amendment Processing Flow
-3. Aggregation vs Composition Model
-4. Graph Schema (ER Diagram)
-5. Query Flow (Point-in-Time Retrieval)
-6. SAT-Graph vs Baseline Comparison
-7. Temporal Versioning Timeline
-8. Provenance Tracking (Action Nodes)
-9. System Architecture Overview
-10. Space Complexity Comparison
-11. Evaluation Results Summary
-12. Key Takeaways
-
-**View in**:
-- GitHub (renders automatically)
-- VS Code (with Mermaid extension)
-- [mermaid.live](https://mermaid.live) (copy and paste)
-
----
-
-## 🔬 Research Contributions
-
-### What We've Proven
-
-1. ✅ **Temporal Precision**: 100% vs 0% (eliminates anachronism)
-2. ✅ **Provenance Tracking**: Complete legislative history via Action nodes
-3. ✅ **Space Efficiency**: 98.8% savings with aggregation model
-4. ✅ **Scalability**: Processes 137 amendments, 6,284 versions successfully
-
-### What's Novel
-
-1. **Aggregation Model**: First application of LRMoo "Aggregation, Not Composition" pattern to legal RAG
-2. **TLR-Bench**: First benchmark for temporal legal reasoning
-3. **Failure Mode Analysis**: Identified and demonstrated critical baseline limitations (anachronism)
-
-### Publication-Ready
-
-- ✅ **System Implementation**: Complete and verified
-- ✅ **Evaluation**: Proper metrics and baseline comparison
-- ✅ **Benchmark**: Novel contribution (TLR-Bench)
-- ✅ **Documentation**: Comprehensive (12 diagrams, 4 reports)
-
----
-
-## 📚 Example Queries
-
-### Query 1: Point-in-Time Retrieval
-
-```python
-query = "What did Article 214 say in 2005?"
-date = "2005-01-01"
-
-# SAT-Graph-RAG: Returns v1 (1988 text) ✅
-# Baseline RAG: Returns v4 (2020 text) ❌ ANACHRONISM
+```bash
+python scripts/test_retrieval.py
 ```
 
-### Query 2: Provenance Tracking
+### Benchmark Evaluation
 
-```python
-query = "Which amendments changed Article 222?"
+We created a benchmark with 77 test queries across 6 categories:
 
-# SAT-Graph-RAG: "EC 36 (2002)" ✅
-# Baseline RAG: Cannot answer ❌
-```
+```bash
+# Quick evaluation (3 queries)
+python scripts/run_quick_benchmark.py
 
-### Query 3: Version History
-
-```python
-query = "Show version history of Article 214"
-
-# SAT-Graph-RAG: 4 versions (1988, 2009, 2020) ✅
-# Baseline RAG: Current version only ❌
+# Full evaluation (77 queries)
+python scripts/generate_benchmark.py
+python scripts/evaluate_benchmark.py
 ```
 
 ---
 
-## 🎉 Bottom Line
+## System Statistics
 
-**SAT-Graph-RAG achieves 100% temporal precision on historical legal queries, eliminating the anachronism errors that make baseline RAG systems unsuitable for legal applications.**
+**Graph Database**:
+- 4,195 components (constitutional elements)
+- 6,284 temporal versions (CTVs)
+- 137 amendments processed (EC 1-137, 1989-2025)
+- 20,965 relationships
 
-**For legal research where historical accuracy is critical, this is a game-changer.**
+**Performance**:
+- Query time: ~10ms average
+- Temporal precision: 100% on test queries
+- Space efficiency: 98.8% savings vs. full duplication
+
+**Verification**:
+- 12/12 system checks passed
+- All 137 amendments successfully ingested
+- No duplicate versions or orphaned nodes
 
 ---
 
-## 📞 Contact & References
+## Benchmark Dataset
+
+We created **TLR-Bench** (Temporal Legal Reasoning Benchmark), a dataset for evaluating temporal query capabilities in legal RAG systems:
+
+- **77 test queries** across 6 task types
+- **Ground truth** verified from graph database
+- **Standardized metrics** (temporal precision, amendment F1, causal completeness)
+
+Dataset location: `data/benchmark/tlr_bench_v1.json`
+
+Task categories:
+1. Point-in-Time Retrieval (17 queries)
+2. Amendment Attribution (20 queries)
+3. Temporal Difference (15 queries)
+4. Causal Lineage (10 queries)
+5. Temporal Consistency (10 queries)
+6. Hierarchical Impact (5 queries)
+
+---
+
+## Technical Details
+
+### Technologies
+
+- **Graph Database**: Neo4j 5.x with APOC plugin
+- **Language**: Python 3.10+
+- **Embeddings**: OpenAI text-embedding-3-small
+- **Storage**: ~2GB for complete graph
+
+### Key Files
+
+```
+sat-graph-rag/
+├── src/
+│   ├── graph/
+│   │   ├── loader.py              # Constitution ingestion
+│   │   └── temporal_engine.py     # Temporal query engine
+│   ├── rag/
+│   │   ├── planner.py             # Query planning
+│   │   └── retriever.py           # Temporal retrieval
+│   └── baseline/
+│       └── flat_rag.py            # Baseline RAG for comparison
+├── scripts/
+│   ├── run_mvp_demo.py            # Main demonstration
+│   ├── process_all_amendments.py  # Amendment processing
+│   ├── run_verification.py        # System verification
+│   └── generate_benchmark.py      # Benchmark generation
+└── data/
+    └── benchmark/
+        └── tlr_bench_v1.json      # Benchmark dataset
+```
+
+### Cypher Query Examples
+
+**Get article version at specific date**:
+```cypher
+MATCH (c:Component {component_id: 'tit_08_cap_03_sec_01_art_214_art_214'})
+      -[:HAS_VERSION]->(v:CTV)
+WHERE v.date_start <= date('2005-01-01')
+  AND (v.date_end IS NULL OR v.date_end > date('2005-01-01'))
+MATCH (v)-[:EXPRESSED_IN]->(clv:CLV)-[:HAS_TEXT]->(t:TextUnit)
+RETURN v, t
+```
+
+**Find all amendments that modified an article**:
+```cypher
+MATCH (c:Component {component_id: 'tit_08_cap_05_art_221_inc_IV_art_222'})
+      -[:HAS_VERSION]->(v:CTV)<-[:RESULTED_IN]-(a:Action)
+RETURN DISTINCT a.action_id, a.date
+ORDER BY a.date
+```
+
+---
+
+## Limitations
+
+### Current Implementation
+
+- Amendment text is stored as placeholders (e.g., "Modified by EC 59") rather than full amendment text
+- Hierarchical traversal queries are not fully implemented
+- Single language support (Portuguese)
+- No API endpoint (command-line only)
+
+### Evaluation Scope
+
+- Tested on Brazilian Constitution only (1988-2025)
+- Baseline comparison limited to one flat-text RAG system
+- No user study with legal professionals conducted
+
+---
+
+## Documentation
+
+- **System Diagrams**: `docs/DIAGRAMS.md` - 12 Mermaid diagrams explaining architecture
+- **Benchmark Spec**: `docs/BENCHMARK_SPECIFICATION.md` - TLR-Bench details
+- **Demo Results**: `MVP_DEMO_RESULTS.md` - Demonstration outcomes
+
+---
+
+## License
+
+MIT License
+
+## References
 
 - **Paper**: arXiv:2505.00039
-- **Brazilian Federal Constitution**: Planalto.gov.br
-- **License**: MIT
+- **Data Source**: Brazilian Federal Constitution (Planalto.gov.br)
+- **Ontology**: LRMoo (Library Reference Model - object oriented)
+
+---
+
+## Contact
+
+For questions about the implementation or benchmark dataset, please open an issue.
 
 ---
 
 **Last Updated**: January 2026
-**Status**: ✅ Research-Ready, MVP Complete, Benchmark Published

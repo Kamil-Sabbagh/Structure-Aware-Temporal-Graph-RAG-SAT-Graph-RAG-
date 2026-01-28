@@ -1,7 +1,6 @@
 # SAT-Graph-RAG: Project Summary for Supervisor
 
 **Project**: Structure-Aware Temporal Graph RAG for Legal Documents
-**Student**: [Your Name]
 **Date**: January 28, 2026
 **Status**: ✅ Complete - Research Ready with MVP and Benchmark
 
@@ -40,7 +39,7 @@ We have successfully implemented and validated **SAT-Graph-RAG**, a novel tempor
 **What it contains**:
 - Complete project overview
 - MVP results (100% vs 0%)
-- 4 graph visualizations with your Neo4j queries
+- 4 graph visualizations with Neo4j queries
 - Links to all deliverables
 - Quick start guide
 
@@ -118,7 +117,7 @@ python scripts/run_mvp_demo.py
 
 ---
 
-## 🗂️ Graph Visualizations (Your Neo4j Queries)
+## 🗂️ Graph Visualizations (With Neo4j Queries)
 
 All 4 graph screenshots are in the **`images/`** folder and **embedded in README.md**:
 
@@ -156,9 +155,9 @@ All 4 graph screenshots are in the **`images/`** folder and **embedded in README
 - **Solution**: Aggregation model = 6,284 CTVs actual (linear)
 - **Result**: **98.8% space savings**
 
-### 2. TLR-Bench (First Temporal Legal Benchmark)
+### 2. TLR-Bench
 
-**Innovation**: First benchmark specifically for temporal legal reasoning.
+**Innovation**: we created a benchmark specifically for temporal legal reasoning.
 
 - 77 test queries
 - 6 task categories
@@ -232,7 +231,7 @@ python scripts/run_verification.py
 
 1. ✅ Complete temporal graph RAG system
 2. ✅ Novel aggregation model (98.8% space savings)
-3. ✅ First temporal legal reasoning benchmark (TLR-Bench)
+3. ✅ created a temporal legal reasoning benchmark (TLR-Bench)
 4. ✅ Comprehensive evaluation framework
 
 ### What We Proved
@@ -244,16 +243,8 @@ python scripts/run_verification.py
 
 ### What's Novel
 
-1. **First application** of LRMoo aggregation model to legal RAG
-2. **First benchmark** for temporal legal reasoning (TLR-Bench)
-3. **Demonstrated critical failure mode** of baseline systems (anachronism)
-
-### Publication-Ready
-
-- ✅ System implemented and verified
-- ✅ Proper evaluation with baseline comparison
-- ✅ Novel benchmark dataset (standalone contribution)
-- ✅ Comprehensive documentation (12 diagrams, 4 reports)
+1. **The application** of LRMoo aggregation model to legal RAG
+2. **The benchmark** for temporal legal reasoning (TLR-Bench)
 
 ---
 

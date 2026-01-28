@@ -1,0 +1,72 @@
+{
+  "summary": {
+    "total_queries": 16,
+    "sat_graph_rag": {
+      "correct_count": 4,
+      "accuracy": 0.25,
+      "avg_score": 0.33096590909090906,
+      "avg_time_ms": 24.49899911880493
+    },
+    "baseline_rag": {
+      "correct_count": 2,
+      "accuracy": 0.125,
+      "avg_score": 0.1452922077922078,
+      "avg_time_ms": 12.050896883010864
+    },
+    "improvement": {
+      "accuracy_delta": 2,
+      "accuracy_delta_percent": 12.5
+    }
+  },
+  "by_category": {
+    "complex_temporal": {
+      "total": 1,
+      "sat_correct": 0,
+      "baseline_correct": 0,
+      "sat_accuracy": 0.0,
+      "baseline_accuracy": 0.0
+    },
+    "current_baseline_can_answer": {
+      "total": 2,
+      "sat_correct": 0,
+      "baseline_correct": 0,
+      "sat_accuracy": 0.0,
+      "baseline_accuracy": 0.0
+    },
+    "hierarchical": {
+      "total": 2,
+      "sat_correct": 1,
+      "baseline_correct": 0,
+      "sat_accuracy": 0.5,
+      "baseline_accuracy": 0.0
+    },
+    "negative_test": {
+      "total": 2,
+      "sat_correct": 0,
+      "baseline_correct": 1,
+      "sat_accuracy": 0.0,
+      "baseline_accuracy": 0.5
+    },
+    "point_in_time": {
+      "total": 4,
+      "sat_correct": 2,
+      "baseline_correct": 1,
+      "sat_accuracy": 0.5,
+      "baseline_accuracy": 0.25
+    },
+    "provenance": {
+      "total": 4,
+      "sat_correct": 1,
+      "baseline_correct": 0,
+      "sat_accuracy": 0.25,
+      "baseline_accuracy": 0.0
+    },
+    "version_history": {
+      "total": 1,
+      "sat_correct": 0,
+      "baseline_correct": 0,
+      "sat_accuracy": 0.0,
+      "baseline_accuracy": 0.0
+    }
+  }
+}

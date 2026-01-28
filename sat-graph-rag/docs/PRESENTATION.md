@@ -218,13 +218,5 @@ sat-graph-rag/
 - **LRMoo**: Library Reference Model - object oriented (ISO/IEC)
 - **Data Source**: [Planalto.gov.br](https://www.planalto.gov.br/ccivil_03/constituicao/)
 
----
 
-## 👥 Team
-
-Built as part of the AIRI research project.
-
----
-
-*Last updated: December 2024*
 

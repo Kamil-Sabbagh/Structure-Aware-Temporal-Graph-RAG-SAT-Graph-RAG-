@@ -1,0 +1,386 @@
+{
+  "metadata": {
+    "evaluation_date": "2026-01-21T09:58:50.670420",
+    "total_queries": 10,
+    "methodology": "Paper evaluation framework with 3 query patterns"
+  },
+  "summary": {
+    "sat_graph_rag": {
+      "queries_passed": 4,
+      "pass_rate": 0.4,
+      "avg_time_ms": 7.220172882080078
+    },
+    "baseline_rag": {
+      "queries_passed": 0,
+      "pass_rate": 0.0,
+      "avg_time_ms": 9.212899208068848
+    },
+    "improvement": {
+      "delta_queries": 4,
+      "delta_percent": 40.0
+    }
+  },
+  "by_pattern": {
+    "point_in_time": {
+      "total": 3,
+      "sat_passed": 3,
+      "baseline_passed": 0,
+      "sat_pass_rate": 1.0,
+      "baseline_pass_rate": 0.0
+    },
+    "hierarchical": {
+      "total": 2,
+      "sat_passed": 0,
+      "baseline_passed": 0,
+      "sat_pass_rate": 0.0,
+      "baseline_pass_rate": 0.0
+    },
+    "provenance": {
+      "total": 3,
+      "sat_passed": 1,
+      "baseline_passed": 0,
+      "sat_pass_rate": 0.3333333333333333,
+      "baseline_pass_rate": 0.0
+    }
+  },
+  "detailed_results": [
+    {
+      "query_id": "pattern_a_1",
+      "pattern": "point_in_time",
+      "category": "temporal_precision",
+      "query": "What did Article 214 say in 2005?",
+      "sat_time_ms": 6.45899772644043,
+      "sat_metrics": {
+        "temporal_precision": 1.0,
+        "text_containment_score": 0.3333333333333333,
+        "text_containment_passed": false,
+        "retrieved_ctvs": 1
+      },
+      "sat_passed": true,
+      "baseline_time_ms": 8.560895919799805,
+      "baseline_metrics": {
+        "temporal_precision": 0.0,
+        "text_containment_score": 0.0,
+        "text_containment_passed": false,
+        "note": "Baseline returns current version only (anachronistic)"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_version": 1,
+        "version_valid_range": {
+          "start": "1988-10-05",
+          "end": "2009-01-01"
+        },
+        "should_contain_keywords": [
+          "lei estabelecerá",
+          "plano nacional de educação",
+          "educação"
+        ],
+        "should_not_contain": [
+          "EC 59",
+          "EC 108",
+          "Modified",
+          "Added"
+        ],
+        "sat_graph_expected": "Returns v1 (1988 original text)",
+        "baseline_expected": "Returns v4 (2020 text with 'EC 108') - ANACHRONISTIC",
+        "evaluation_metric": "temporal_precision"
+      }
+    },
+    {
+      "query_id": "pattern_a_2",
+      "pattern": "point_in_time",
+      "category": "temporal_precision",
+      "query": "What did Article 222 say in 2000?",
+      "sat_time_ms": 5.303144454956055,
+      "sat_metrics": {
+        "temporal_precision": 1.0,
+        "text_containment_score": 0.5,
+        "text_containment_passed": false,
+        "retrieved_ctvs": 1
+      },
+      "sat_passed": true,
+      "baseline_time_ms": 9.237051010131836,
+      "baseline_metrics": {
+        "temporal_precision": 0.0,
+        "text_containment_score": 0.0,
+        "text_containment_passed": false,
+        "note": "Baseline returns current version only (anachronistic)"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_version": 1,
+        "version_valid_range": {
+          "start": "1988-10-05",
+          "end": "2002-01-01"
+        },
+        "should_contain_keywords": [
+          "propriedade de empresa jornalística",
+          "radiodifusão"
+        ],
+        "should_not_contain": [
+          "EC 36",
+          "Modified"
+        ],
+        "sat_graph_expected": "Returns v1 (1988 original)",
+        "baseline_expected": "Returns v2 (2002 text) - ANACHRONISTIC",
+        "evaluation_metric": "temporal_precision"
+      }
+    },
+    {
+      "query_id": "pattern_a_3",
+      "pattern": "point_in_time",
+      "category": "temporal_precision",
+      "query": "What did ADCT Article 2 say in 1995?",
+      "sat_time_ms": 6.9599151611328125,
+      "sat_metrics": {
+        "temporal_precision": 1.0,
+        "text_containment_score": 1.0,
+        "text_containment_passed": true,
+        "retrieved_ctvs": 1
+      },
+      "sat_passed": true,
+      "baseline_time_ms": 7.6389312744140625,
+      "baseline_metrics": {
+        "temporal_precision": 0.0,
+        "text_containment_score": 0.0,
+        "text_containment_passed": false,
+        "note": "Baseline returns current version only (anachronistic)"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_version": 5,
+        "amendment_at_this_date": "ec_6",
+        "should_not_retrieve_version": 151,
+        "sat_graph_expected": "Returns v5 (from EC 6 in 1995)",
+        "baseline_expected": "Returns v151 (current version) - ANACHRONISTIC",
+        "evaluation_metric": "temporal_precision",
+        "note": "High-complexity test: 151 versions to choose from"
+      }
+    },
+    {
+      "query_id": "pattern_b_1",
+      "pattern": "hierarchical",
+      "category": "structural_awareness",
+      "query": "Which articles in Title VIII have been amended since 2000?",
+      "sat_time_ms": 16.89600944519043,
+      "sat_metrics": {
+        "action_attribution_f1": 0.0,
+        "action_attribution_precision": 0.0,
+        "action_attribution_recall": 0.0,
+        "summary_completeness": 0.0,
+        "found_actions": [],
+        "found_articles": []
+      },
+      "sat_passed": false,
+      "baseline_time_ms": 13.247966766357422,
+      "baseline_metrics": {
+        "action_attribution_f1": 0.0,
+        "action_attribution_precision": 0.0,
+        "action_attribution_recall": 0.0,
+        "summary_completeness": 0.0,
+        "note": "Baseline has no structural relationships (HAS_CHILD) or Action nodes"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_articles": [
+          "tit_08_cap_03_sec_01_art_214_art_214",
+          "tit_08_cap_05_art_221_inc_IV_art_222"
+        ],
+        "correct_amendments": [
+          "ec_36",
+          "ec_59",
+          "ec_108"
+        ],
+        "evaluation_metric": "action_attribution_f1",
+        "sat_graph_expected": "Traverses HAS_CHILD relationships, finds all amended articles in Title VIII",
+        "baseline_expected": "Keyword matching only, cannot understand hierarchy",
+        "requires_capabilities": [
+          "Hierarchical traversal (HAS_CHILD relationships)",
+          "Temporal filtering (amendments since 2000)",
+          "Structural grouping (all articles under Title VIII)"
+        ]
+      }
+    },
+    {
+      "query_id": "pattern_b_2",
+      "pattern": "hierarchical",
+      "category": "structural_awareness",
+      "query": "Summarize all changes to Title VIII Section 1 (Education) since 2009",
+      "sat_time_ms": 15.542984008789062,
+      "sat_metrics": {
+        "action_attribution_f1": 0.0,
+        "action_attribution_precision": 0.0,
+        "action_attribution_recall": 0.0,
+        "summary_completeness": 0.0,
+        "found_actions": [],
+        "found_articles": []
+      },
+      "sat_passed": false,
+      "baseline_time_ms": 13.888120651245117,
+      "baseline_metrics": {
+        "action_attribution_f1": 0.0,
+        "action_attribution_precision": 0.0,
+        "action_attribution_recall": 0.0,
+        "summary_completeness": 0.0,
+        "note": "Baseline has no structural relationships (HAS_CHILD) or Action nodes"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_articles_affected": [
+          "tit_08_cap_03_sec_01_art_214_art_214"
+        ],
+        "correct_amendments": [
+          "ec_59",
+          "ec_108"
+        ],
+        "evaluation_metric": "summary_completeness",
+        "sat_graph_expected": "Identifies all Action nodes affecting components under this section",
+        "baseline_expected": "Cannot answer (no structural relationships)"
+      }
+    },
+    {
+      "query_id": "pattern_c_1",
+      "pattern": "provenance",
+      "category": "amendment_tracking",
+      "query": "Which amendment first changed Article 214?",
+      "sat_time_ms": 1.7998218536376953,
+      "sat_metrics": {
+        "attribution_accuracy": false,
+        "found_amendments": [
+          "ec_108",
+          "ec_59"
+        ]
+      },
+      "sat_passed": false,
+      "baseline_time_ms": 7.604837417602539,
+      "baseline_metrics": {
+        "attribution_accuracy": false,
+        "causal_chain_completeness": 0.0,
+        "note": "Baseline has no Action nodes or provenance data"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_answer": "ec_59",
+        "amendment_date": "2009-01-01",
+        "evaluation_metric": "attribution_accuracy",
+        "sat_graph_expected": "Returns EC 59 via Action node",
+        "baseline_expected": "CANNOT ANSWER (no Action nodes)",
+        "baseline_cannot_answer": true
+      }
+    },
+    {
+      "query_id": "pattern_c_2",
+      "pattern": "provenance",
+      "category": "amendment_tracking",
+      "query": "Trace the complete amendment history of Article 214",
+      "sat_time_ms": 1.207113265991211,
+      "sat_metrics": {
+        "causal_chain_completeness": 0.0,
+        "found_amendments": [
+          "ec_108",
+          "ec_59"
+        ]
+      },
+      "sat_passed": false,
+      "baseline_time_ms": 9.16600227355957,
+      "baseline_metrics": {
+        "attribution_accuracy": false,
+        "causal_chain_completeness": 0.0,
+        "note": "Baseline has no Action nodes or provenance data"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_sequence": [
+          "ec_59",
+          "ec_108"
+        ],
+        "amendment_dates": [
+          "2009-01-01",
+          "2020-01-01"
+        ],
+        "total_amendments": 2,
+        "evaluation_metric": "causal_chain_completeness",
+        "sat_graph_expected": "Returns complete sequence: EC 59 (2009) → EC 108 (2020)",
+        "baseline_expected": "CANNOT ANSWER (no provenance data)",
+        "baseline_cannot_answer": true
+      }
+    },
+    {
+      "query_id": "pattern_c_3",
+      "pattern": "provenance",
+      "category": "amendment_tracking",
+      "query": "Which amendment changed Article 222?",
+      "sat_time_ms": 1.3887882232666016,
+      "sat_metrics": {
+        "attribution_accuracy": true,
+        "found_amendments": [
+          "ec_36"
+        ]
+      },
+      "sat_passed": true,
+      "baseline_time_ms": 6.821155548095703,
+      "baseline_metrics": {
+        "attribution_accuracy": false,
+        "causal_chain_completeness": 0.0,
+        "note": "Baseline has no Action nodes or provenance data"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_answer": "ec_36",
+        "amendment_date": "2002-01-01",
+        "evaluation_metric": "attribution_accuracy",
+        "sat_graph_expected": "Returns EC 36",
+        "baseline_expected": "CANNOT ANSWER (no Action nodes)",
+        "baseline_cannot_answer": true
+      }
+    },
+    {
+      "query_id": "negative_test_1",
+      "pattern": "negative_test",
+      "category": "false_positive_prevention",
+      "query": "Which amendments have changed Article 1?",
+      "sat_time_ms": 1.2822151184082031,
+      "sat_metrics": {},
+      "sat_passed": false,
+      "baseline_time_ms": 7.853984832763672,
+      "baseline_metrics": {},
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_answer": "none",
+        "total_versions": 1,
+        "sat_graph_expected": "Returns empty list or 'no amendments'",
+        "baseline_expected": "May return false positives from keyword matching",
+        "evaluation_metric": "precision",
+        "note": "Tests that system correctly identifies unamended articles"
+      }
+    },
+    {
+      "query_id": "current_version_test",
+      "pattern": "current_state",
+      "category": "baseline_can_answer",
+      "query": "What does Article 214 say currently?",
+      "sat_time_ms": 15.362739562988281,
+      "sat_metrics": {},
+      "sat_passed": false,
+      "baseline_time_ms": 8.11004638671875,
+      "baseline_metrics": {
+        "temporal_precision": 0.0,
+        "text_containment_score": 0.0,
+        "text_containment_passed": false,
+        "note": "Baseline returns current version only (anachronistic)"
+      },
+      "baseline_passed": false,
+      "ground_truth": {
+        "correct_version": 4,
+        "should_contain_keywords": [
+          "EC 108"
+        ],
+        "sat_graph_expected": "Returns v4 (current active version)",
+        "baseline_expected": "Returns v4 (current version) - CORRECT",
+        "evaluation_metric": "accuracy",
+        "note": "Sanity check - both systems should handle current queries correctly"
+      }
+    }
+  ]
+}

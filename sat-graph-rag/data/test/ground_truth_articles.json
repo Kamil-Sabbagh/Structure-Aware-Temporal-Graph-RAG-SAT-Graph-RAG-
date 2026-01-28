@@ -1,0 +1,205 @@
+{
+  "articles": [
+    {
+      "article_name": "Article 214",
+      "component_id": "tit_08_cap_03_sec_01_art_214_art_214",
+      "title": "Title VIII - Social Order",
+      "section": "Education",
+      "original_date": "1988-10-05",
+      "versions": [
+        {
+          "version": 1,
+          "date_start": "1988-10-05",
+          "date_end": "2009-01-01",
+          "amendment": null,
+          "header": "Art. 214.",
+          "text_preview": "A lei estabelecerá o plano nacional de educação",
+          "has_full_text": true
+        },
+        {
+          "version": 2,
+          "date_start": "2009-01-01",
+          "date_end": "2009-01-01",
+          "amendment": "ec_59",
+          "text_preview": "Modified by EC 59",
+          "has_full_text": false
+        },
+        {
+          "version": 3,
+          "date_start": "2009-01-01",
+          "date_end": "2020-01-01",
+          "amendment": "ec_59",
+          "text_preview": "Added/Modified by EC 59",
+          "has_full_text": false
+        },
+        {
+          "version": 4,
+          "date_start": "2020-01-01",
+          "date_end": null,
+          "amendment": "ec_108",
+          "text_preview": "Added/Modified by EC 108",
+          "has_full_text": false,
+          "is_active": true
+        }
+      ],
+      "amendments": ["ec_59", "ec_108"],
+      "total_versions": 4,
+      "test_queries": {
+        "point_in_time": {
+          "query": "What did Article 214 say in 2005?",
+          "target_date": "2005-01-01",
+          "correct_version": 1,
+          "should_contain": ["lei estabelecerá", "plano nacional de educação"],
+          "should_not_contain": ["EC 59", "EC 108", "Modified"]
+        },
+        "current_state": {
+          "query": "What does Article 214 say currently?",
+          "target_date": "2025-01-01",
+          "correct_version": 4,
+          "should_contain": ["EC 108"],
+          "baseline_retrieves": "v4"
+        },
+        "provenance": {
+          "query": "Which amendments changed Article 214?",
+          "correct_answer": ["ec_59", "ec_108"],
+          "baseline_cannot_answer": true
+        }
+      }
+    },
+    {
+      "article_name": "Article 222",
+      "component_id": "tit_08_cap_05_art_221_inc_IV_art_222",
+      "title": "Title VIII - Social Order",
+      "section": "Social Communication",
+      "original_date": "1988-10-05",
+      "versions": [
+        {
+          "version": 1,
+          "date_start": "1988-10-05",
+          "date_end": "2002-01-01",
+          "amendment": null,
+          "header": "Art. 222.",
+          "text_preview": "A propriedade de empresa jornalística",
+          "has_full_text": true
+        },
+        {
+          "version": 2,
+          "date_start": "2002-01-01",
+          "date_end": null,
+          "amendment": "ec_36",
+          "has_full_text": false,
+          "is_active": true
+        }
+      ],
+      "amendments": ["ec_36"],
+      "total_versions": 2,
+      "test_queries": {
+        "point_in_time": {
+          "query": "What did Article 222 say in 2000?",
+          "target_date": "2000-01-01",
+          "correct_version": 1,
+          "should_contain": ["propriedade de empresa jornalística"],
+          "should_not_contain": ["EC 36", "Modified"]
+        },
+        "provenance": {
+          "query": "Which amendment changed Article 222?",
+          "correct_answer": ["ec_36"],
+          "baseline_cannot_answer": true
+        }
+      }
+    },
+    {
+      "article_name": "ADCT Article 2",
+      "component_id": "tit_09_art_1_art_2",
+      "title": "Title IX - ADCT (Temporary Constitutional Provisions)",
+      "original_date": "1988-10-05",
+      "versions": [
+        {
+          "version": 1,
+          "date_start": "1988-10-05",
+          "date_end": "1992-01-01",
+          "amendment": null,
+          "has_full_text": true
+        },
+        {
+          "version": 5,
+          "date_start": "1995-01-01",
+          "date_end": "1995-01-01",
+          "amendment": "ec_6"
+        },
+        {
+          "version": 151,
+          "date_start": "2025-01-01",
+          "date_end": null,
+          "is_active": true,
+          "note": "Last of 151 versions"
+        }
+      ],
+      "amendments": ["ec_1", "ec_3", "ec_6", "ec_7", "ec_8", "ec_9", "ec_10", "ec_11"],
+      "total_versions": 151,
+      "test_queries": {
+        "point_in_time": {
+          "query": "What did ADCT Article 2 say in 1995?",
+          "target_date": "1995-01-01",
+          "correct_version": 5,
+          "note": "Should return v5 (from EC 6), NOT v151 (current)"
+        },
+        "version_history": {
+          "query": "Show all versions of ADCT Article 2",
+          "expected_count": 151,
+          "baseline_cannot_answer": true
+        }
+      }
+    },
+    {
+      "article_name": "Article 1",
+      "component_id": "tit_01_art_1_art_1",
+      "title": "Title I - Fundamental Principles",
+      "original_date": "1988-10-05",
+      "versions": [
+        {
+          "version": 1,
+          "date_start": "1988-10-05",
+          "date_end": null,
+          "amendment": null,
+          "header": "Art. 1º",
+          "text_preview": "A República Federativa do Brasil",
+          "has_full_text": true,
+          "is_active": true
+        }
+      ],
+      "amendments": [],
+      "total_versions": 1,
+      "test_queries": {
+        "negative_test": {
+          "query": "Which amendments changed Article 1?",
+          "correct_answer": "none",
+          "note": "Test that system correctly identifies unamended articles"
+        }
+      }
+    }
+  ],
+  "hierarchical_test_data": {
+    "title_viii": {
+      "component_id": "tit_08",
+      "name": "Title VIII - Social Order",
+      "amended_articles_sample": [
+        "tit_08_cap_03_sec_01_art_214_art_214",
+        "tit_08_cap_05_art_221_inc_IV_art_222"
+      ],
+      "test_query": {
+        "query": "Which articles in Title VIII have been amended since 2000?",
+        "should_find": ["Article 214", "Article 222"],
+        "baseline_limitation": "Cannot traverse hierarchy, keyword matching only"
+      }
+    }
+  },
+  "metadata": {
+    "created": "2026-01-20",
+    "source": "Neo4j SAT-Graph-RAG database",
+    "verification_method": "Direct Cypher queries",
+    "total_constitution_components": 4195,
+    "total_amendments_processed": 137,
+    "total_ctvs": 6284
+  }
+}

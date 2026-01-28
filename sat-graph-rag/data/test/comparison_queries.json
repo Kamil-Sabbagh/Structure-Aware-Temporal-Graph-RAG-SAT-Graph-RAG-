@@ -1,0 +1,228 @@
+[
+  {
+    "id": "temporal_01",
+    "category": "point_in_time",
+    "query": "What were the social rights in Article 6 in 1999?",
+    "query_pt": "Quais eram os direitos sociais no Artigo 6 em 1999?",
+    "target_date": "1999-07-01",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "should_contain": ["educação", "saúde", "trabalho", "lazer", "segurança", "previdência social", "proteção à maternidade"],
+      "should_not_contain": ["moradia", "alimentação", "transporte"],
+      "explanation": "Housing (moradia) was added by EC 26 in 2000, food (alimentação) by EC 64 in 2010, transport (transporte) by EC 90 in 2015. They should NOT be in 1999 version.",
+      "correct_version": 1,
+      "correct_ctv": "tit_02_cap_02_art_6_v1"
+    }
+  },
+  {
+    "id": "temporal_02",
+    "category": "point_in_time",
+    "query": "What were the social rights in Article 6 in 2025?",
+    "query_pt": "Quais são os direitos sociais no Artigo 6 em 2025?",
+    "target_date": "2025-01-01",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "should_contain": ["educação", "saúde", "trabalho", "moradia", "lazer", "segurança", "previdência social", "proteção à maternidade", "assistência aos desamparados", "alimentação", "transporte"],
+      "should_not_contain": [],
+      "explanation": "Current version should include all rights including those added by EC 26 (2000), EC 64 (2010), and EC 90 (2015).",
+      "correct_version": 4,
+      "correct_ctv": "tit_02_cap_02_art_6_v4"
+    }
+  },
+  {
+    "id": "temporal_03",
+    "category": "point_in_time",
+    "query": "What did Article 1 say in 1988 at enactment?",
+    "query_pt": "O que dizia o Artigo 1 em 1988 na promulgação?",
+    "target_date": "1988-10-05",
+    "target_component": "tit_01_art_1",
+    "ground_truth": {
+      "should_contain": ["República Federativa do Brasil", "Estado Democrático de Direito"],
+      "should_not_contain": [],
+      "explanation": "Original text from 1988 constitution.",
+      "correct_version": 1,
+      "correct_ctv": "tit_01_art_1_v1"
+    }
+  },
+  {
+    "id": "provenance_01",
+    "category": "provenance",
+    "query": "Which amendment added 'housing' (moradia) to Article 6?",
+    "query_pt": "Qual emenda adicionou 'moradia' ao Artigo 6?",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "correct_amendment": 26,
+      "amendment_date": "2000-02-14",
+      "explanation": "EC 26/2000 added the right to housing (direito à moradia) to Article 6.",
+      "action_id": "action_ec_26"
+    }
+  },
+  {
+    "id": "provenance_02",
+    "category": "provenance",
+    "query": "Which amendments changed Article 6 between 1988 and 2025?",
+    "query_pt": "Quais emendas alteraram o Artigo 6 entre 1988 e 2025?",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "correct_amendments": [26, 64, 90],
+      "explanation": "EC 26/2000 added housing, EC 64/2010 added food, EC 90/2015 added transport.",
+      "total_versions": 4
+    }
+  },
+  {
+    "id": "provenance_03",
+    "category": "provenance",
+    "query": "What did EC 45 (Constitutional Amendment 45) change?",
+    "query_pt": "O que a EC 45 mudou?",
+    "ground_truth": {
+      "correct_amendment": 45,
+      "amendment_date": "2004-12-30",
+      "affected_components": ["judicial reform", "labor courts", "human rights"],
+      "explanation": "EC 45/2004 was the major Judicial Reform, affecting numerous articles in the Judiciary title.",
+      "action_id": "action_ec_45"
+    }
+  },
+  {
+    "id": "version_history_01",
+    "category": "version_history",
+    "query": "Show me the complete version history of Article 6",
+    "query_pt": "Mostre-me o histórico completo de versões do Artigo 6",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "total_versions": 4,
+      "versions": [
+        {"version": 1, "date_start": "1988-10-05", "is_original": true, "amendment": null},
+        {"version": 2, "date_start": "2000-02-14", "is_original": false, "amendment": 26},
+        {"version": 3, "date_start": "2010-02-04", "is_original": false, "amendment": 64},
+        {"version": 4, "date_start": "2015-09-16", "is_original": false, "amendment": 90}
+      ],
+      "explanation": "Article 6 has 4 versions spanning from 1988 to 2015."
+    }
+  },
+  {
+    "id": "hierarchical_01",
+    "category": "hierarchical",
+    "query": "What are all the chapters in Title II (Fundamental Rights)?",
+    "query_pt": "Quais são todos os capítulos no Título II (Direitos Fundamentais)?",
+    "target_component": "tit_02",
+    "ground_truth": {
+      "should_include_chapters": [
+        "Individual and Collective Rights",
+        "Social Rights",
+        "Nationality",
+        "Political Rights",
+        "Political Parties"
+      ],
+      "total_chapters": 5,
+      "explanation": "Title II has 5 chapters covering different types of fundamental rights."
+    }
+  },
+  {
+    "id": "hierarchical_02",
+    "category": "hierarchical",
+    "query": "Show me all articles in Chapter II of Title II (Social Rights)",
+    "query_pt": "Mostre-me todos os artigos no Capítulo II do Título II (Direitos Sociais)",
+    "target_component": "tit_02_cap_02",
+    "ground_truth": {
+      "should_include_articles": [6, 7, 8, 9, 10, 11],
+      "article_range": "Art. 6 to Art. 11",
+      "explanation": "Social Rights chapter contains articles 6-11."
+    }
+  },
+  {
+    "id": "complex_01",
+    "category": "complex_temporal",
+    "query": "How did the definition of social rights evolve from 1988 to 2025?",
+    "query_pt": "Como evoluiu a definição de direitos sociais de 1988 a 2025?",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "evolution": [
+        {"year": 1988, "rights_count": 9, "new_rights": ["original set"]},
+        {"year": 2000, "rights_count": 10, "new_rights": ["moradia"]},
+        {"year": 2010, "rights_count": 11, "new_rights": ["alimentação"]},
+        {"year": 2015, "rights_count": 12, "new_rights": ["transporte"]}
+      ],
+      "explanation": "Social rights expanded from 9 to 12 rights over 37 years through 3 amendments.",
+      "requires_multiple_versions": true
+    }
+  },
+  {
+    "id": "negative_temporal_01",
+    "category": "negative_test",
+    "query": "What did Article 6 say about 'transport' (transporte) in 2010?",
+    "query_pt": "O que o Artigo 6 dizia sobre 'transporte' em 2010?",
+    "target_date": "2010-07-01",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "should_contain": [],
+      "should_not_contain": ["transporte"],
+      "explanation": "Transport was NOT in Article 6 in 2010. It was added by EC 90 in 2015. A correct system should return empty or say it wasn't mentioned.",
+      "correct_answer": "Article 6 did not mention transport in 2010",
+      "baseline_likely_fails": true
+    }
+  },
+  {
+    "id": "negative_temporal_02",
+    "category": "negative_test",
+    "query": "Did Article 6 include 'housing' (moradia) in 1995?",
+    "query_pt": "O Artigo 6 incluía 'moradia' em 1995?",
+    "target_date": "1995-01-01",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "correct_answer": "No",
+      "should_not_contain": ["moradia"],
+      "explanation": "Housing was added by EC 26 in 2000, so it did NOT exist in 1995.",
+      "baseline_likely_fails": true
+    }
+  },
+  {
+    "id": "adct_temporal_01",
+    "category": "point_in_time",
+    "query": "What did ADCT Article 60 say in 1995?",
+    "query_pt": "O que dizia o Artigo 60 do ADCT em 1995?",
+    "target_date": "1995-07-01",
+    "target_component": "tit_09_art_60_art_61",
+    "ground_truth": {
+      "correct_version": 6,
+      "explanation": "ADCT Article 60 has been heavily amended (160 versions). Need to retrieve the correct 1995 version.",
+      "baseline_likely_fails": true
+    }
+  },
+  {
+    "id": "adct_provenance_01",
+    "category": "provenance",
+    "query": "How many times has ADCT Article 60 been amended?",
+    "query_pt": "Quantas vezes o Artigo 60 do ADCT foi emendado?",
+    "target_component": "tit_09_art_60_art_61",
+    "ground_truth": {
+      "total_amendments": 159,
+      "total_versions": 160,
+      "explanation": "One of the most heavily amended articles in the constitution.",
+      "baseline_cannot_answer": true
+    }
+  },
+  {
+    "id": "simple_current_01",
+    "category": "current_baseline_can_answer",
+    "query": "What are the fundamental objectives of Brazil?",
+    "query_pt": "Quais são os objetivos fundamentais do Brasil?",
+    "target_component": "tit_01_art_3",
+    "ground_truth": {
+      "should_contain": ["construir uma sociedade livre", "garantir o desenvolvimento nacional", "erradicar a pobreza", "reduzir as desigualdades"],
+      "explanation": "Article 3 lists the fundamental objectives. Both systems should handle this.",
+      "baseline_should_handle": true
+    }
+  },
+  {
+    "id": "simple_current_02",
+    "category": "current_baseline_can_answer",
+    "query": "What are the current social rights in the constitution?",
+    "query_pt": "Quais são os direitos sociais atuais na constituição?",
+    "target_component": "tit_02_cap_02_art_6",
+    "ground_truth": {
+      "should_contain": ["educação", "saúde", "alimentação", "trabalho", "moradia", "transporte", "lazer", "segurança", "previdência social", "proteção à maternidade", "assistência aos desamparados"],
+      "explanation": "Current version (2025) with all amendments. Baseline should handle this correctly.",
+      "baseline_should_handle": true
+    }
+  }
+]
